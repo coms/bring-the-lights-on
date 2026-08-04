@@ -1,0 +1,54 @@
+{
+  "$comment": [
+    "WHERE THIS PACKAGE APPLIES. Replace all of it with your own region - this ships configured",
+    "for greater Hartford, Connecticut, because it is a region whose answer is already known, so",
+    "you can run a sweep and see what a correct result looks like before pointing it somewhere",
+    "you cannot check.",
+    "",
+    "`region` is the hard boundary. Anything the generator emits outside it is a build error.",
+    "That guard exists because a dropped minus sign on a longitude looks completely normal and",
+    "puts a beacon in western China."
+  ],
+
+  "name": "Greater Hartford, CT",
+
+  "region": {
+    "south": 41.640,
+    "west": -72.870,
+    "north": 41.960,
+    "east": -72.530
+  },
+
+  "$search_areas_comment": [
+    "Boxes that `python -m tools.sweep` searches for structures. Each must sit inside `region`.",
+    "",
+    "Declaring several small areas rather than one big one is usually what you want: a sweep of",
+    "a whole metropolitan region returns every chimney on every apartment block, and you pay for",
+    "each one in objects. Narrow boxes around the places that actually carry tall structures -",
+    "a ridge line, an industrial flat, a downtown core - give a far better package.",
+    "",
+    "Remove this block entirely to sweep the whole `region` box instead."
+  ],
+  "search_areas": {
+    "metacomet_ridge": {
+      "$comment": "The trap ridge west of Hartford: Avon Mountain at the south end, north over Talcott Mountain into Simsbury. Carries the broadcast antenna farm that serves the Hartford market - masts of 300-500 ft standing on a 900-1000 ft crest, so their beacons sit at 1300-1500 ft MSL and are the first thing you see approaching the valley from the west at night.",
+      "south": 41.750,
+      "west": -72.830,
+      "north": 41.870,
+      "east": -72.760
+    },
+    "south_meadows": {
+      "$comment": "The industrial flats between I-91 and the Connecticut River, north of Hartford-Brainard. Covers the generating station stacks, which read as separate lights in a short line on a night circuit.",
+      "south": 41.738,
+      "west": -72.665,
+      "north": 41.758,
+      "east": -72.640
+    }
+  },
+
+  "reference_point": {
+    "$comment": "Map centre, and the origin for preview output. Old State House, downtown Hartford.",
+    "lat": 41.766390,
+    "lon": -72.673060
+  }
+}

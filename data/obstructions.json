@@ -1,0 +1,63 @@
+{
+  "$schema_comment": [
+    "Aviation obstruction lighting on tall structures.",
+    "",
+    "At night, correctly marked obstacles are how you read vertical development from the cockpit.",
+    "Marking follows FAA AC 70/7460-1 in outline - a flashing beacon at the top, steady red side",
+    "lights at intermediate levels roughly every 150 ft below it.",
+    "",
+    "`obstructions` STARTS EMPTY. Populate it with:",
+    "",
+    "    python -m tools.sweep --apply",
+    "",
+    "which searches OpenStreetMap inside every area declared in data/region.json. Entries can",
+    "also be written by hand, and hand-written ones are the right answer for a structure OSM has",
+    "no height for - the sweep skips those rather than guessing at an altitude.",
+    "",
+    "A re-sweep REPLACES this list. Anything hand-added is lost, so record a structure the sim",
+    "already lights in `sweep.exclude` in config/build_profile.json instead of deleting it here.",
+    "",
+    "`levels` is generated automatically from height_ft when `auto_levels` is true: one ring of",
+    "steady side lights every `level_interval_ft` below the top, per the AC's guidance.",
+    "",
+    "HEIGHTS come from OSM height tags, which are contributed rather than surveyed. Do not use",
+    "this package as an obstacle database - it is scenery."
+  ],
+
+  "defaults": {
+    "level_interval_ft": 150,
+    "lights_per_level": 4,
+    "marking": "red"
+  },
+
+  "$marking_comment": [
+    "FAA AC 70/7460-1 allows a structure to be marked with red lights or with medium-intensity",
+    "white strobes, and both are in common use.",
+    "",
+    "The white scheme is not just a colour swap. A white system strobes at every level including",
+    "the top, uses fewer levels than a red one, and carries three units per level rather than",
+    "four - so it gets its own interval and count rather than inheriting the defaults.",
+    "",
+    "Marking is the one field OSM cannot supply: it records that a structure is there, not what",
+    "the authority had it painted or lit with. The sweep therefore proposes red for anything new,",
+    "and carries an existing choice over when a swept structure lands on top of one.",
+    "",
+    "OUTSIDE THE UNITED STATES these numbers are wrong. ICAO Annex 14 marks from 45 m rather than",
+    "200 ft and spaces levels differently. Edit the schemes here - nothing in tools/ hard-codes",
+    "them."
+  ],
+  "marking_schemes": {
+    "red": {
+      "top_fixture": "obstruction_red_beacon",
+      "side_fixture": "obstruction_red_steady"
+    },
+    "white": {
+      "top_fixture": "obstruction_white_strobe",
+      "side_fixture": "obstruction_white_strobe",
+      "level_interval_ft": 250,
+      "lights_per_level": 3
+    }
+  },
+
+  "obstructions": []
+}

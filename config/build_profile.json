@@ -1,0 +1,80 @@
+{
+  "$comment": "Controls what gets generated, what the sweep looks for, and how dense it is. Edit this rather than the generator.",
+
+  "features": {
+    "obstructions": true
+  },
+
+  "sweep": {
+    "$comment": [
+      "What `python -m tools.sweep` searches OpenStreetMap for, inside each area declared in",
+      "data/region.json.",
+      "",
+      "Selectors are a union, and each one is a set of OSM tags that must all match. Masts and",
+      "communication towers are tagged inconsistently between man_made=mast and man_made=tower,",
+      "so both are listed; taking only one of them misses real structures.",
+      "",
+      "These three classes are deliberate. Buildings and wind turbines are the obvious things to",
+      "add and the two worst things to add blind: MSFS lights a lot of wind turbines itself, and",
+      "photogrammetry towers often come with their own beacons, so sweeping them doubles up. Add",
+      "them if you have checked your region in the sim, not before."
+    ],
+    "selectors": [
+      { "man_made": "mast" },
+      { "man_made": "tower", "tower:type": "communication" },
+      { "man_made": "chimney" }
+    ],
+
+    "$min_marked_height_comment": [
+      "Structures shorter than this are left unlit. FAA AC 70/7460-1 generally requires marking",
+      "from 200 ft AGL, and ICAO Annex 14 uses 45 m (about 150 ft) - lower it if you are outside",
+      "the United States and want the shorter masts.",
+      "",
+      "This is also the frame-rate lever. Every marked structure costs one beacon plus a ring of",
+      "side lights per 150 ft below the top, so raising the floor thins the package fast."
+    ],
+    "min_marked_height_ft": 200.0,
+
+    "$exclude_comment": [
+      "OSM ids the sweep must never propose, as `type/id` - for example `way/12345678`.",
+      "",
+      "This is where 'the sim already lights that one' gets recorded. A doubled or slightly",
+      "offset beacon reads worse than no beacon at all, and that judgement can only be made in",
+      "the sim, so it is recorded here once instead of being made again on every re-sweep."
+    ],
+    "exclude": []
+  },
+
+  "limits": {
+    "$comment": "Hard ceilings. The build fails rather than silently shipping something that will tank the sim.",
+    "max_total_objects": 40000,
+    "warn_total_objects": 8000
+  },
+
+  "placement": {
+    "$comment": [
+      "snap_to_ground applies only to objects at ground level. Anything with an AGL height - which",
+      "is every light this package places - is never snapped, or the whole package would end up",
+      "lying on the terrain."
+    ],
+    "snap_to_ground": true,
+    "image_complexity": "NORMAL"
+  },
+
+  "bindings": {
+    "$comment": [
+      "What to do about fixture types with no GUID or effect name yet.",
+      "  skip  - omit them, keep building, report the count (default; lets you get a usable",
+      "          package out before you have sourced every model)",
+      "  error - fail the build. Use this once you believe every binding is filled in, so a",
+      "          regression in config/library_bindings.json cannot slip through."
+    ],
+    "on_unresolved": "skip"
+  },
+
+  "output": {
+    "scenery_dir": "PackageSources/scenery",
+    "write_geojson_preview": true,
+    "preview_dir": "build/preview"
+  }
+}

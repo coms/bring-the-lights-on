@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  MSFS project definition. GENERATED - edit config/package.json and re-run
+  `python -m tools.packaging`.
+
+  Build with:  fspackagetool.exe bring-the-lights-on.xml
+-->
+
+<ProjectDefinition Version="2" Name="bring-the-lights-on" OutputDir="Packages" TemporaryOutputDir="_PackageInt">
+  <PackageDefinitions>
+    <PackageDefinition file="PackageDefinitions\coms-bring-the-lights-on.xml"/>
+  </PackageDefinitions>
+</ProjectDefinition>

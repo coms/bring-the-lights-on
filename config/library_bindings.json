@@ -1,0 +1,45 @@
+{
+  "$comment": [
+    "Maps the logical fixture types used by data/obstructions.json onto something the sim can",
+    "actually draw.",
+    "",
+    "Two kinds are supported:",
+    "  library_object - places <LibraryObject name=\"{GUID}\"/>. The GUID must come from a model",
+    "                   library you can see in the sim: the MSFS SDK sample object libraries, a",
+    "                   third-party library you already have installed, or your own ModelLib.",
+    "  effect         - places <Effect effectName=\"...\"/>. The named effect must exist in an",
+    "                   EffectLibrary the sim has loaded.",
+    "",
+    "Nothing is invented. A fabricated GUID produces a package that compiles without complaint",
+    "and then draws nothing at all, with no error to tell you why - which is the worst possible",
+    "failure mode. Fill these in against a library you actually have, then set \"resolved\": true.",
+    "",
+    "Fixtures that are still unresolved are skipped, not faked. A build with unresolved fixtures",
+    "is a valid partial build. See docs/bindings.md."
+  ],
+
+  "fixtures": {
+    "obstruction_red_beacon": {
+      "description": "Flashing red obstruction beacon for the top of a structure. FAA L-864: red, 20-40 flashes per minute. This is the single most important binding in the package - it is what makes a mast readable at night.",
+      "kind": "effect",
+      "effect_name": null,
+      "resolved": false,
+      "keywords": ["obstruction", "beacon", "red", "L-864", "hazard", "warning light"]
+    },
+    "obstruction_red_steady": {
+      "description": "Steady red side light, ringed at intermediate levels below the top beacon. FAA L-810: steady-burning, not flashing. Placed four to a level every 150 ft.",
+      "kind": "effect",
+      "effect_name": null,
+      "resolved": false,
+      "keywords": ["obstruction", "side light", "red", "L-810", "steady", "marker"]
+    },
+    "obstruction_white_strobe": {
+      "description": "Medium-intensity white strobe, FAA L-865. Used at every level of a white-marked structure rather than only at the top, three to a level every 250 ft. Bound here to the strobe from the coms2014-lights library.",
+      "kind": "library_object",
+      "guid": "{32b6e309-c93f-43b8-af78-109b96126fff}",
+      "scale": 1.0,
+      "resolved": true,
+      "keywords": ["obstruction", "strobe", "white", "L-865", "medium intensity"]
+    }
+  }
+}

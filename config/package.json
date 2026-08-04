@@ -1,0 +1,10 @@
+{
+  "package_name": "coms-bring-the-lights-on",
+  "title": "Bring The Lights On — obstruction lighting",
+  "creator": "coms",
+  "package_version": "0.1.0",
+  "content_type": "SCENERY",
+  "minimum_game_version": "1.0.0",
+  "release_notes_url": "https://github.com/coms/bring-the-lights-on/blob/main/CHANGELOG.md",
+  "description": "FAA-style obstruction lighting on tall structures, generated from OpenStreetMap."
+}
